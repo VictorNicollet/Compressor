@@ -1,0 +1,26 @@
+Immutable data structures allow the reuse of common sub-expression between
+complex values: two lists that have the same tail may indeed share the same
+tail value, two binary trees may share certain sub-trees, and so on. In
+practice, such sharing only happens when the second value was constructed
+from the first. If two independent values happen to share most of their
+content, there will be no actual memory sharing. This creates an 
+unnecessary memory load, because more memory is used than otherwise necessary.
+
+Should this increased memory usage become an issue (for instance, for
+long-lived values in a web server), collapsing common sub-expressions 
+eliminates repetition by recursively traversing the objects and ensuring for
+every two sub-expression [e] and [e'] that if [e = e'] then [e == e'].
+
+This module provides basic primitives for constructing a collapser for a 
+specific type.
+
+Documentation: 
+
+  inline (and ocamldoc-compatible) in file compressor.mli 
+
+Building: 
+
+  ocamlc -c compressor.mli
+  ocamlc -c compressor.ml
+
+This module has no dependencies.
